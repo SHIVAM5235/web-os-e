@@ -298,34 +298,55 @@ button{font:inherit}
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:10px;
-  padding:16px;
+  gap:12px;
+  padding:18px;
   color:#e6eef6;
   text-align:center;
   cursor:pointer;
   user-select:none;
   transition:transform .22s ease,box-shadow .22s ease,background .22s ease;
-  background:rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.08);
   border-radius:28px;
   box-shadow:0 18px 42px rgba(0,0,0,0.18);
 }
 .desktop-icon:hover{
   transform:translateY(-3px);
-  background:rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.12);
+}
+.desktop-icon{
+  outline:none;
+}
+.desktop-icon:focus{
+  outline:none;
 }
 .desktop-icon .glyph{
-  width:86px;
-  height:86px;
-  border-radius:26px;
-  background:linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0.05));
+  width:88px;
+  height:88px;
+  border-radius:22px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:36px;
-  box-shadow:inset 0 5px 12px rgba(255,255,255,0.22),0 18px 36px rgba(0,0,0,0.16);
-  backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,0.12);
+  position:relative;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.18);
+  overflow:hidden;
 }
+.desktop-icon .glyph::before{
+  content: attr(data-icon);
+  font-size:2rem;
+  z-index:1;
+}
+.desktop-icon .glyph::after{
+  content: '';
+  position: absolute;
+  inset:0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), transparent 45%);
+}
+.desktop-icon[data-app="Explorer"] .glyph{background:linear-gradient(180deg,#4b8bff,#1a69f2);}
+.desktop-icon[data-app="Browser"] .glyph{background:linear-gradient(180deg,#3dd8bf,#1b9d8a);}
+.desktop-icon[data-app="Notes"] .glyph{background:linear-gradient(180deg,#ffcf5c,#ff9f1c);}
+.desktop-icon[data-app="Settings"] .glyph{background:linear-gradient(180deg,#9da6ff,#6473ff);}
+.desktop-icon[data-app="Calculator"] .glyph{background:linear-gradient(180deg,#8f6bff,#5a3ef1);}
+.desktop-icon[data-app="Weather"] .glyph{background:linear-gradient(180deg,#4fd1ff,#4a8cff);}
 .desktop-icon .label{
   font-size:0.96rem;
   letter-spacing:.01em;
@@ -341,34 +362,55 @@ button{font:inherit}
   z-index:20;
 }
 #dock{
-  height:72px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(18px);
+  height:80px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(24px);
   border-radius:999px;
-  padding:10px 22px;
+  padding:12px 24px;
   display:flex;
   gap:14px;
   align-items:center;
   box-shadow:0 18px 38px rgba(0,0,0,0.28);
 }
 .dock-item{
-  width:62px;
-  height:62px;
-  border-radius:18px;
+  width:70px;
+  height:70px;
+  border-radius:20px;
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
   transition:transform .18s cubic-bezier(.2,.9,.2,1),box-shadow .18s,background .18s;
-  background:rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.18);
   color:#fff;
-  font-size:26px;
+}
+.dock-item::before{
+  content: attr(data-icon);
+  font-size:1.5rem;
+  z-index:1;
+}
+.dock-item:focus{
+  outline:none;
+}
+.dock-item::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
 }
 .dock-item:hover{
-  transform:translateY(-4px) scale(1.1);
-  box-shadow:0 18px 40px rgba(79,156,255,0.24);
-  background:rgba(255,255,255,0.2);
+  transform:translateY(-4px) scale(1.08);
+  box-shadow:0 22px 40px rgba(79,156,255,0.22);
+  background:rgba(255,255,255,0.28);
 }
+.dock-item[data-app="Explorer"]{background:linear-gradient(180deg,#4b8bff,#1a69f2);}
+.dock-item[data-app="Browser"]{background:linear-gradient(180deg,#3dd8bf,#1b9d8a);}
+.dock-item[data-app="Notes"]{background:linear-gradient(180deg,#ffcf5c,#ff9f1c);}
+.dock-item[data-app="Calculator"]{background:linear-gradient(180deg,#8f6bff,#5a3ef1);}
+.dock-item[data-app="Weather"]{background:linear-gradient(180deg,#4fd1ff,#4a8cff);}
+.dock-item[data-app="Settings"]{background:linear-gradient(180deg,#9da6ff,#6473ff);}
 
 .win{
   position:absolute;
@@ -488,17 +530,6 @@ button{font:inherit}
 .explorer-root li strong{display:block;margin-bottom:8px;font-size:1rem;color:#1f2937;}
 .explorer-root [data-file]{padding:10px 14px;border-radius:12px;display:block;cursor:pointer;background:rgba(79,156,255,0.08);border:1px solid rgba(79,156,255,0.12);transition:transform .18s ease,background .18s ease;}
 .explorer-root [data-file]:hover{transform:translateX(2px);background:rgba(79,156,255,0.14);}
-
-.desktop-icon .glyph{
-  width:64px;
-  height:64px;
-  border-radius:12px;
-  background:linear-gradient(180deg,#ffffff22,#00000022);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-}
 .desktop-icon:focus{
   outline:3px solid var(--accent);
   outline-offset:4px;

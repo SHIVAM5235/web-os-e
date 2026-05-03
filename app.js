@@ -408,7 +408,7 @@ function createWindow(appName, opts = {}) {
     }
   });
 
-  // controls behavior
+  
   btnClose.addEventListener('click', () => closeWindow(id));
   btnMin.addEventListener('click', () => {
     win.style.display = 'none';
@@ -439,7 +439,7 @@ function createWindow(appName, opts = {}) {
     saveWindows();
   });
 
-  // keyboard inside window
+  
   win.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeWindow(id);
     if (e.ctrlKey && e.key.toLowerCase() === 'm') {
@@ -449,10 +449,10 @@ function createWindow(appName, opts = {}) {
     }
   });
 
-  // double-click header toggles maximize
+  
   header.addEventListener('dblclick', () => btnMax.click());
 
-  // lazy-load app content
+  
   loadAppContent(appName, body, id);
 
   saveWindows();
@@ -471,7 +471,7 @@ function closeWindow(id) {
   }, 220);
 }
 
-/* Save & restore windows (persist minimal geometry + app name) */
+
 function saveWindows() {
   try {
     const arr = [];
@@ -506,27 +506,21 @@ function restoreWindows() {
   }
 }
 
-/* ============================
-   App loaders (lazy)
-   - Explorer: fake file tree + open text files
-   - Browser: sandboxed iframe with safe default
-   - Notes: create/edit/save notes to localStorage
-   - Settings: theme toggle, wallpaper chooser, dock position, reset
-   ============================ */
+
 function loadAppContent(appName, container, winId) {
-  // clear & show loader
+  
   container.innerHTML = '';
   const loader = create('div', { textContent: `Loading ${appName}…` });
   container.appendChild(loader);
 
-  // small delay to simulate lazy load
+  
   setTimeout(() => {
     container.innerHTML = '';
     const name = appName.toLowerCase();
 
     if (name.includes('explorer')) {
       const tpl = $('#tpl-explorer').content.cloneNode(true);
-      // wire file clicks
+      
       $$('[data-file]', tpl).forEach(node => {
         node.addEventListener('click', () => openTextFile(node.dataset.file));
         node.addEventListener('keydown', (e) => { if (e.key === 'Enter') openTextFile(node.dataset.file); });
@@ -620,9 +614,9 @@ function loadAppContent(appName, container, winId) {
             try {
               const sanitized = display.value.replace(/×/g, '*').replace(/÷/g, '/');
               if (!/^[0-9+\-*/(). ]+$/.test(sanitized)) throw new Error('Invalid expression');
-              /* eslint-disable no-new-func */
+              
               display.value = String(new Function(`return ${sanitized}`)());
-              /* eslint-enable no-new-func */
+              
             } catch (err) {
               display.value = 'Error';
             }
@@ -638,7 +632,7 @@ function loadAppContent(appName, container, winId) {
     } else if (name.includes('settings')) {
       const tpl = $('#tpl-settings').content.cloneNode(true);
 
-      // theme radios
+     
       $$('input[name="theme"]', tpl).forEach(r => {
         if (r.value === settings.theme) r.checked = true;
         r.addEventListener('change', (e) => {
@@ -648,7 +642,7 @@ function loadAppContent(appName, container, winId) {
         });
       });
 
-      // wallpaper buttons
+      
       $$('button[data-wall]', tpl).forEach(b => b.addEventListener('click', (e) => {
         settings.wallpaper = e.currentTarget.dataset.wall;
         delete settings.customWallpaper;
@@ -665,7 +659,7 @@ function loadAppContent(appName, container, winId) {
         });
       }
 
-      // upload wallpaper
+      
       const upload = tpl.querySelector('#wall-upload');
       upload.addEventListener('change', (e) => {
         const f = e.target.files[0];
@@ -679,7 +673,7 @@ function loadAppContent(appName, container, winId) {
         reader.readAsDataURL(f);
       });
 
-      // dock position radios
+      
       $$('input[name="dockpos"]', tpl).forEach(r => {
         if (r.value === settings.dock) r.checked = true;
         r.addEventListener('change', (e) => {
@@ -689,7 +683,7 @@ function loadAppContent(appName, container, winId) {
         });
       });
 
-      // reset defaults
+      
       tpl.querySelector('#resetDefaults').addEventListener('click', () => {
         localStorage.removeItem(STORAGE.SETTINGS);
         localStorage.removeItem(STORAGE.WINDOWS);
@@ -704,7 +698,7 @@ function loadAppContent(appName, container, winId) {
   }, 180);
 }
 
-/* Simple fake file viewer */
+
 function openTextFile(filename) {
   const id = createWindow('Text Viewer');
   const win = document.getElementById(id);
@@ -717,17 +711,13 @@ function openTextFile(filename) {
   body.innerHTML = `<pre style="white-space:pre-wrap">${escapeHtml(files[filename] || 'File not found')}</pre>`;
 }
 
-/* ============================
-   Desktop & Dock interactions
-   ============================ */
+
 $$('#icons-grid [data-app], #dock [data-app]').forEach(el => {
   el.addEventListener('click', () => createWindow(el.dataset.app));
   el.addEventListener('keydown', (e) => { if (e.key === 'Enter') createWindow(el.dataset.app); });
 });
 
-/* ============================
-   Global keyboard shortcuts & focus
-   ============================ */
+
 document.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'n') {
     e.preventDefault();
@@ -750,32 +740,21 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// focus management: bring window to front when focused
+
 document.addEventListener('focusin', (e) => {
   const win = e.target.closest('.win');
   if (win) win.style.zIndex = ++zCounter;
 });
 
-/* ============================
-   Helpers
-   ============================ */
+
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
-/* ============================
-   Security & performance notes
-   - IFRAME sandboxing: Browser iframe uses sandbox attribute without allow-same-origin to reduce risk.
-   - Avoid eval: this file uses no eval or dynamic code execution.
-   - innerHTML: only used with escaped content or trusted templates.
-   - localStorage: used for persistence; do not store secrets here.
-   - Lazy-loading: app content is created only when window opens.
-   ============================ */
 
-/* Save settings on unload */
 window.addEventListener('beforeunload', () => saveSettings(settings));
 
-/* Expose some helpers for debugging (optional) */
+
 window.__webos = {
   createWindow,
   closeWindow,
@@ -784,9 +763,9 @@ window.__webos = {
   saveSettings
 };
 
-/* Restore wallpaper if custom */
+
 if (settings.customWallpaper) {
   $('#wallpaper').style.backgroundImage = `url(${settings.customWallpaper})`;
 }
 
-/* End of app.js */
+
