@@ -31,7 +31,13 @@ button{font:inherit}
   z-index:9999;
   
 }
-
+#lockscreen::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:none;
+  pointer-events:none;
+}
 #lockscreen.active{
   animation:lock-pulse 1.8s ease infinite alternate;
 }
@@ -103,7 +109,7 @@ button{font:inherit}
   background-position:center;
   background-repeat:no-repeat;
  
- 
+  transition:filter .6s ease;
   display:block;
   z-index:0;
 }
