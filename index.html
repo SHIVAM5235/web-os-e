@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WebOS Prototype</title>
+
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ 
+  <div id="lockscreen" role="dialog" aria-label="Lock screen" aria-modal="true">
+    <div id="lock-clock" aria-live="polite">00:00:00</div>
+    <div id="lock-sub">Swipe or press Enter to unlock</div>
+    <div id="unlock-hint">
+      <div class="swipe-area" id="swipeArea" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Swipe to unlock">
+        <div class="swipe-knob" id="swipeKnob" aria-hidden="true"></div>
+      </div>
+      <button class="unlock-btn" id="unlockBtn" aria-label="Unlock">Unlock</button>
+    </div>
+  </div>
+
+  
+  <div id="desktop" role="application" aria-label="Web desktop environment" tabindex="-1">
+    
+    <div id="wallpaper" class="dark" role="img" aria-label="Desktop wallpaper"></div>
+
+    
+    <header id="statusbar" role="banner" aria-label="System status bar">
+      <div id="status-left" aria-hidden="false">
+        <div id="sys-menu" role="button" tabindex="0" aria-label="System menu">☰</div>
+      </div>
+      <div id="status-right" role="status" aria-live="polite" aria-atomic="true">
+        <span id="tray-network" class="tray-icon" aria-hidden="false">📶</span>
+        <span id="tray-battery" class="tray-icon" aria-hidden="false">🔋100%</span>
+        <span id="tray-time" aria-hidden="false">00:00</span>
+      </div>
+    </header>
+    <div id="start-panel" class="hidden" role="menu" aria-label="Start menu">
+      <div class="start-panel-header">
+        <div class="start-panel-title">Start</div>
+        <div class="start-panel-sub">Search apps or launch one</div>
+      </div>
+      <div class="start-search">
+        <input id="start-search" type="search" placeholder="Search apps..." aria-label="Search apps" />
+      </div>
+      <div class="start-app-grid" role="grid" aria-label="Start menu apps">
+        <button type="button" class="start-app-item" data-app="Explorer" aria-label="Open Explorer">📁<span>Explorer</span></button>
+        <button type="button" class="start-app-item" data-app="Browser" aria-label="Open Browser">🌐<span>Browser</span></button>
+        <button type="button" class="start-app-item" data-app="Notes" aria-label="Open Notes">📝<span>Notes</span></button>
+        <button type="button" class="start-app-item" data-app="Settings" aria-label="Open Settings">⚙️<span>Settings</span></button>
+        <button type="button" class="start-app-item" data-app="Calculator" aria-label="Open Calculator">🧮<span>Calculator</span></button>
+        <button type="button" class="start-app-item" data-app="Weather" aria-label="Open Weather">☀️<span>Weather</span></button>
+      </div>
+      <div class="start-panel-actions">
+        <button type="button" data-action="lock">Lock screen</button>
+        <button type="button" data-action="about">About WebOS</button>
+      </div>
+    </div>
+    <main id="desktop-area" role="main" aria-label="Desktop main area">
+      <section id="icons-grid" role="grid" aria-label="Desktop icons">
+        
+        <div class="desktop-icon" role="button" tabindex="0" data-app="Explorer" aria-label="File Explorer">
+          <div class="glyph" aria-hidden="true">📁</div>
+          <div class="label">Explorer</div>
+        </div>
+
+        <div class="desktop-icon" role="button" tabindex="0" data-app="Browser" aria-label="Browser">
+          <div class="glyph" aria-hidden="true">🌐</div>
+          <div class="label">Browser</div>
+        </div>
+
+        <div class="desktop-icon" role="button" tabindex="0" data-app="Notes" aria-label="Notes">
+          <div class="glyph" aria-hidden="true">📝</div>
+          <div class="label">Notes</div>
+        </div>
+
+        <div class="desktop-icon" role="button" tabindex="0" data-app="Settings" aria-label="Settings">
+          <div class="glyph" aria-hidden="true">⚙️</div>
+          <div class="label">Settings</div>
+        </div>
+        <div class="desktop-icon" role="button" tabindex="0" data-app="Calculator" aria-label="Calculator">
+          <div class="glyph" aria-hidden="true">🧮</div>
+          <div class="label">Calculator</div>
+        </div>
+        <div class="desktop-icon" role="button" tabindex="0" data-app="Weather" aria-label="Weather">
+          <div class="glyph" aria-hidden="true">☀️</div>
+          <div class="label">Weather</div>
+        </div>
+      </section>
+    </main>
+
+    <div id="taskbar" role="toolbar" aria-label="Start menu">
+      <button id="start-btn" class="start-button" type="button" aria-label="Open start menu" aria-haspopup="menu" aria-expanded="false">⌘</button>
+    </div>
+
+    <div id="dock-wrap" aria-hidden="false">
+      <nav id="dock" role="navigation" aria-label="Dock">
+        <div class="dock-item dock-anim-bounce" role="button" tabindex="0" data-app="Explorer" aria-label="Open Explorer">📁</div>
+        <div class="dock-item dock-anim-scale" role="button" tabindex="0" data-app="Browser" aria-label="Open Browser">🌐</div>
+        <div class="dock-item dock-anim-glow" role="button" tabindex="0" data-app="Notes" aria-label="Open Notes">📝</div>
+        <div class="dock-item dock-anim-bounce" role="button" tabindex="0" data-app="Calculator" aria-label="Open Calculator">🧮</div>
+        <div class="dock-item dock-anim-glow" role="button" tabindex="0" data-app="Weather" aria-label="Open Weather">☀️</div>
+        <div class="dock-item" role="button" tabindex="0" data-app="Settings" aria-label="Open Settings">⚙️</div>
+      </nav>
+    </div>
+  </div>
+
+ 
+  <template id="tpl-explorer">
+    <div class="explorer-root" role="tree" aria-label="File explorer">
+      <ul>
+        <li role="treeitem" aria-expanded="true"><strong>Documents</strong>
+          <ul>
+            <li role="treeitem" tabindex="0" data-file="hello.txt">hello.txt</li>
+            <li role="treeitem" tabindex="0" data-file="readme.md">readme.md</li>
+          </ul>
+        </li>
+        <li role="treeitem" aria-expanded="false"><strong>Pictures</strong>
+          <ul>
+            <li role="treeitem" tabindex="0" data-file="sunset.jpg">sunset.jpg</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </template>
+
+  <template id="tpl-settings">
+    <div class="settings" role="region" aria-label="Settings">
+      <h3>Appearance</h3>
+      <label><input type="radio" name="theme" value="dark"> Dark</label>
+      <label><input type="radio" name="theme" value="light"> Light</label>
+
+      <h3>Wallpaper</h3>
+      <div>
+        <button data-wall="sample1">Sample 1</button>
+        <button data-wall="sample2">Sample 2</button>
+        <button data-wall="sample3">Sample 3</button>
+        <input type="file" id="wall-upload" accept="image/*" aria-label="Upload wallpaper">
+      </div>
+      <label><input type="checkbox" id="lockWallpaperToggle"> Use wallpaper on lock screen</label>
+
+      <h3>Dock</h3>
+      <label><input type="radio" name="dockpos" value="bottom" checked> Bottom</label>
+      <label><input type="radio" name="dockpos" value="left"> Left</label>
+      <label><input type="radio" name="dockpos" value="right"> Right</label>
+
+      <h3>Shortcuts</h3>
+      <p>Open Notes: <kbd>Ctrl</kbd>+<kbd>N</kbd></p>
+
+      <button id="resetDefaults">Reset to defaults</button>
+    </div>
+  </template>
+
+  
+  <script src="app.js" defer></script>
+</body>
+</html>
