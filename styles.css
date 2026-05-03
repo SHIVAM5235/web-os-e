@@ -29,7 +29,7 @@ button{font:inherit}
   background-repeat:no-repeat;
 
   z-index:9999;
-  transition:filter .9s ease, opacity .6s ease, background .6s ease;
+  transition:filter .9s ease, opacity .6s ease,  ease;
 }
 #lockscreen::before{
   content:'';
