@@ -15,8 +15,9 @@ const STORAGE = {
 const DEFAULT_SETTINGS = {
   theme: 'dark',          
   wallpaper: 'sample1',   
+  customWallpaper: 'https://picsum.photos/seed/homewallpaper/1600/900',
   lockWallpaper: true,
-  lockWallpaperImage: 'https://picsum.photos/id/1011/1600/900',
+  lockWallpaperImage: 'https://picsum.photos/seed/lockscreen/1600/900',
   dock: 'bottom',         
   shortcuts: { notes: 'Ctrl+N' }
 };
