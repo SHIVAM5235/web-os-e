@@ -32,7 +32,7 @@ button{font:inherit}
   
 }
 #lockscreen::before{
-  content:'url(download (5).jpg)';
+  content:'';
   position:absolute;
   inset:0;
   background:none;

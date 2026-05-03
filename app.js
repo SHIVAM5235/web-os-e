@@ -25,7 +25,7 @@ const DEFAULT_SETTINGS = {
 function loadSettings() {
   try {
     const raw = localStorage.getItem(STORAGE.SETTINGS);
-    return raw ? JSON.parse(raw) : { ...DEFAULT_SETTINGS };
+    return raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : { ...DEFAULT_SETTINGS };
   } catch (e) {
     console.warn('Failed to load settings', e);
     return { ...DEFAULT_SETTINGS };
