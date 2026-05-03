@@ -768,8 +768,3 @@ window.__webos = {
 };
 
 
-if (settings.customWallpaper) {
-  $('#wallpaper').style.backgroundImage = `url(${settings.customWallpaper})`;
-}
-
-
