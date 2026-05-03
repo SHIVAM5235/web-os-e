@@ -23,13 +23,13 @@ button{font:inherit}
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  background-image:url('download (5).jpg');
+  background-image:url('lockscreen.jpg');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-
+  background-color:transparent;
   z-index:9999;
-  
+  transition:none;
 }
 #lockscreen::before{
   content:'';
@@ -39,7 +39,7 @@ button{font:inherit}
   pointer-events:none;
 }
 #lockscreen.active{
-  animation:lock-pulse 1.8s ease infinite alternate;
+  animation:none;
 }
 @keyframes lock-pulse{
   from{transform:scale(1);}
@@ -104,12 +104,12 @@ button{font:inherit}
 #wallpaper{
   position:absolute;
   inset:0;
-  background-image:url('📌⚡Fernando Alonso Legend Poster 🔵🟡🏎️ _ Two-Time Champion & Blue-Gold Aesthetic Wallpaper 🌟💥.jpg');
+  background-image:url('wallpaper.jpg');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
- 
-  transition:filter .6s ease;
+  background-color:transparent;
+  transition:none;
   display:block;
   z-index:0;
 }
@@ -309,13 +309,15 @@ button{font:inherit}
   cursor:pointer;
   user-select:none;
   transition:transform .22s ease,box-shadow .22s ease,background .22s ease;
-  background:rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.10);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,0.12);
   border-radius:28px;
-  box-shadow:0 18px 42px rgba(0,0,0,0.18);
+  box-shadow:0 18px 42px rgba(0,0,0,0.14);
 }
 .desktop-icon:hover{
   transform:translateY(-3px);
-  background:rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.14);
 }
 .desktop-icon .glyph{
   width:88px;
@@ -325,7 +327,8 @@ button{font:inherit}
   align-items:center;
   justify-content:center;
   position:relative;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.18);
+  background:transparent;
+  box-shadow:none;
   overflow:hidden;
 }
 .desktop-icon .glyph::before{
@@ -334,17 +337,16 @@ button{font:inherit}
   z-index:1;
 }
 .desktop-icon .glyph::after{
-  content: '';
-  position: absolute;
-  inset:0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.12), transparent 45%);
+  content: none;
 }
-.desktop-icon[data-app="Explorer"] .glyph{background:linear-gradient(180deg,#4b8bff,#1a69f2);}
-.desktop-icon[data-app="Browser"] .glyph{background:linear-gradient(180deg,#3dd8bf,#1b9d8a);}
-.desktop-icon[data-app="Notes"] .glyph{background:linear-gradient(180deg,#ffcf5c,#ff9f1c);}
-.desktop-icon[data-app="Settings"] .glyph{background:linear-gradient(180deg,#9da6ff,#6473ff);}
-.desktop-icon[data-app="Calculator"] .glyph{background:linear-gradient(180deg,#8f6bff,#5a3ef1);}
-.desktop-icon[data-app="Weather"] .glyph{background:linear-gradient(180deg,#4fd1ff,#4a8cff);}
+.desktop-icon[data-app="Explorer"] .glyph,
+.desktop-icon[data-app="Browser"] .glyph,
+.desktop-icon[data-app="Notes"] .glyph,
+.desktop-icon[data-app="Settings"] .glyph,
+.desktop-icon[data-app="Calculator"] .glyph,
+.desktop-icon[data-app="Weather"] .glyph{
+  background:transparent;
+}
 .desktop-icon .label{
   font-size:0.96rem;
   letter-spacing:.01em;
@@ -380,7 +382,9 @@ button{font:inherit}
   justify-content:center;
   cursor:pointer;
   transition:transform .18s cubic-bezier(.2,.9,.2,1),box-shadow .18s,background .18s;
-  background:rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,0.14);
   color:#fff;
 }
 .dock-item::before{

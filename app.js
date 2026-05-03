@@ -79,13 +79,11 @@ lockEl.classList.add('active');
 function unlock() {
   if (unlocked) return;
   unlocked = true;
-  
-  lockEl.style.filter = 'blur(12px)';
-  lockEl.style.opacity = '0';
-  setTimeout(() => {
-    lockEl.style.display = 'none';
-    showDesktop();
-  }, 600);
+  lockEl.style.transition = 'none';
+  lockEl.style.filter = 'none';
+  lockEl.style.opacity = '1';
+  lockEl.style.display = 'none';
+  showDesktop();
 }
 
 
