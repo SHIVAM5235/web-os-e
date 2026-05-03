@@ -27,7 +27,7 @@ button{font:inherit}
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  background-color:transparent;
+
   z-index:9999;
   transition:filter .9s ease, opacity .6s ease, background .6s ease;
 }
@@ -108,7 +108,7 @@ button{font:inherit}
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  background-color:transparent;
+ 
   transition:filter .6s ease;
   display:block;
   z-index:0;
