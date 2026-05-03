@@ -15,7 +15,8 @@ const STORAGE = {
 const DEFAULT_SETTINGS = {
   theme: 'dark',          
   wallpaper: 'sample1',   
-  lockWallpaper: true,    
+  lockWallpaper: true,
+  lockWallpaperImage: 'https://picsum.photos/id/1011/1600/900',
   dock: 'bottom',         
   shortcuts: { notes: 'Ctrl+N' }
 };
@@ -178,32 +179,34 @@ function applySettings() {
     wallpaper.style.backgroundImage = `url(${settings.customWallpaper})`;
     wallpaper.style.backgroundSize = 'cover';
     wallpaper.style.backgroundPosition = 'center';
-        if (settings.lockWallpaper) {
-          lockEl.style.backgroundImage = `url(${settings.customWallpaper})`;
-          lockEl.style.backgroundSize = 'cover';
-          lockEl.style.backgroundPosition = 'center';
-        } else {
-          lockEl.style.backgroundImage = '';
-        }
-      } else {
-        wallpaper.style.backgroundImage = '';
-        wallpaper.style.backgroundPosition = '';
-        lockEl.style.backgroundImage = '';
-        lockEl.style.backgroundPosition = '';
-        lockEl.style.background = '';
-        
-        if (settings.wallpaper === 'sample2') {
-          wallpaper.style.background = 'linear-gradient(135deg,#1b2a4a,#4f9cff)';
-          if (settings.lockWallpaper) lockEl.style.background = 'linear-gradient(135deg,#1b2a4a,#4f9cff)';
-        } else if (settings.wallpaper === 'sample3') {
-          wallpaper.style.background = 'linear-gradient(135deg,#ff9e4f,#ff5f7a)';
-          if (settings.lockWallpaper) lockEl.style.background = 'linear-gradient(135deg,#ff9e4f,#ff5f7a)';
-        } else {
-          const bg = settings.theme === 'light' ? 'linear-gradient(135deg,#f6f9ff,#eaf2ff)' : 'linear-gradient(135deg,#0b1220,#0f2a4a)';
-          wallpaper.style.background = bg;
-          if (settings.lockWallpaper) lockEl.style.background = bg;
-        }
-      }
+    if (settings.lockWallpaper) {
+      lockEl.style.backgroundImage = `url(${settings.lockWallpaperImage || settings.customWallpaper})`;
+      lockEl.style.backgroundSize = 'cover';
+      lockEl.style.backgroundPosition = 'center';
+    } else {
+      lockEl.style.backgroundImage = '';
+      lockEl.style.background = '';
+    }
+  } else {
+    wallpaper.style.backgroundImage = '';
+    wallpaper.style.backgroundPosition = '';
+    lockEl.style.backgroundImage = '';
+    lockEl.style.backgroundPosition = '';
+    lockEl.style.background = '';
+    
+    if (settings.wallpaper === 'sample2') {
+      wallpaper.style.background = 'linear-gradient(135deg,#1b2a4a,#4f9cff)';
+    } else if (settings.wallpaper === 'sample3') {
+      wallpaper.style.background = 'linear-gradient(135deg,#ff9e4f,#ff5f7a)';
+    } else {
+      wallpaper.style.background = settings.theme === 'light' ? 'linear-gradient(135deg,#f6f9ff,#eaf2ff)' : 'linear-gradient(135deg,#0b1220,#0f2a4a)';
+    }
+    if (settings.lockWallpaper) {
+      lockEl.style.backgroundImage = `url(${settings.lockWallpaperImage})`;
+      lockEl.style.backgroundSize = 'cover';
+      lockEl.style.backgroundPosition = 'center';
+    }
+  }
   const dockWrap = $('#dock-wrap');
   if (settings.dock === 'left') {
     dockWrap.style.position = 'absolute';

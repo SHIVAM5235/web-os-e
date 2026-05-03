@@ -30,6 +30,16 @@ button{font:inherit}
   background-size:cover;
   background-position:center;
 }
+#wallpaper{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#0b1220 0%, #0f2a4a 100%);
+  background-size:cover;
+  background-position:center;
+  transition:filter .6s ease;
+  display:block;
+  z-index:0;
+}
 #lockscreen::before{
   content:'';
   position:absolute;
